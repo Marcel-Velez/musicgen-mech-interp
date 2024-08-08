@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>MusicGen Interventions - Audio Samples</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="index.css">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .playlist {
+            margin-bottom: 20px;
+        }
+        .audio-title {
+            margin-top: 10px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .audio-section {
+            margin-bottom: 15px;
+        }
+        .original-audio {
+            margin-bottom: 10px; /* Space between original audio and interventions */
+        }
+        .intervention-group {
+            display: flex;
+            gap: 10px; /* Space between the intervention audio players */
+        }
+        .intervention-group .audio-title {
+            margin: 0; /* Remove margin for titles in this section */
+        }
+        .intervention-group audio {
+            flex: 1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class='section'>
+        <h1>MusicGen Interventions - Examples</h1>
+        <p>Audio samples accompanying the paper <i>Exploring the Inner Workings of Large Generative Music Models</i> (ISMIR 2024) by Marcel A. Vélez Vásquez, Charlotte Pouw, Ashley Burgoyne, and Willem Zuidema.</p>
+
+        <h4>Contents:</h4>
+        <p>
+        <ul class='toc'>
+            <li><a href='#section-1'>Within-Category Interventions: Instrument-Instrument</a></li>
+            <li><a href='#section-2'>Within-Category Interventions: Genre-Genre</a></li>
+            <li><a href='#section-3'>Cross-Category Interventions: Instrument-Genre</a></li>
+            <li><a href='#section-4'>Cross-Category Interventions: Genre-Instrument</a></li>
+        </ul>
+        </p>
+        
+    </div>
+
+    <hr>
+
+    <div id='section-1' class='section'>
+        <h2>Within-Category Interventions: Instrument-Instrument</h2>
+
+        <h3>[TITLE]</h3>
+        <p>Introducing the [MODEL COMPONENT] activations of a [DESIRED INSTRUMENT] prompt during the forward pass of a [ORIGINAL INSTRUMENT] prompt.</p>
+        <div class='playlist'>
+            <div class='audio-section'>
+                <p class='audio-title'>Original audio:</p>
+                <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
+            </div>
+            <div class='audio-section intervention-group'>
+                <div>
+                    <p class='audio-title'>Best-scoring intervention:</p>
+                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
+                </div>
+                <div>
+                    <p class='audio-title'>Worst-scoring intervention:</p>
+                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
+                </div>
+            </div>
+        </div>
+
+        <h3>[TITLE]</h3>
+        <p>Introducing the [MODEL COMPONENT] activations of a [DESIRED INSTRUMENT] prompt during the forward pass of a [ORIGINAL INSTRUMENT] prompt.</p>
+        <div class='playlist'>
+            <div class='audio-section'>
+                <p class='audio-title'>Original audio:</p>
+                <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
+            </div>
+            <div class='audio-section intervention-group'>
+                <div>
+                    <p class='audio-title'>Best-scoring intervention:</p>
+                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
+                </div>
+                <div>
+                    <p class='audio-title'>Worst-scoring intervention:</p>
+                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
+                </div>
+            </div>
+        </div>
+
+        <h3>[TITLE]</h3>
+        <p>Introducing the [MODEL COMPONENT] activations of a [DESIRED INSTRUMENT] prompt during the forward pass of a [ORIGINAL INSTRUMENT] prompt.</p>
+        <div class='playlist'>
+            <div class='audio-section'>
+                <p class='audio-title'>Original audio:</p>
+                <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
+            </div>
+            <div class='audio-section intervention-group'>
+                <div>
+                    <p class='audio-title'>Best-scoring intervention:</p>
+                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
+                </div>
+                <div>
+                    <p class='audio-title'>Worst-scoring intervention:</p>
+                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+    <div id='section-2' class='section'>
+        <h2>Within-Category Interventions: Genre-Genre</h2>
+
+        <h3>[TITLE]</h3>
+        <p>Introducing the [MODEL COMPONENT] activations of a [DESIRED GENRE] prompt during the forward pass of a [ORIGINAL GENRE] prompt.</p>
+        <div class='playlist'>
+            <div class='audio-section'>
+                <p class='audio-title'>Original audio:</p>
+                <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
+            </div>
+            <div class='audio-section intervention-group'>
+                <div>
+                    <p class='audio-title'>Best-scoring intervention:</p>
+                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
+                </div>
+                <div>
+                    <p class='audio-title'>Worst-scoring intervention:</p>
+                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
+                </div>
+            </div>
+        </div>
+
+        <h3>[TITLE]</h3>
+        <p>Introducing the [MODEL COMPONENT] activations of a [DESIRED GENRE] prompt during the forward pass of a [ORIGINAL GENRE] prompt.</p>
+        <div class='playlist'>
+            <div class='audio-section'>
+                <p class='audio-title'>Original audio:</p>
+                <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
+            </div>
+            <div class='audio-section intervention-group'>
+                <div>
+                    <p class='audio-title'>Best-scoring intervention:</p>
+                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
+                </div>
+                <div>
+                    <p class='audio-title'>Worst-scoring intervention:</p>
+                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
+                </div>
+            </div>
+        </div>
+
+        <h3>[TITLE]</h3>
+        <p>Introducing the [MODEL COMPONENT] activations of a [DESIRED GENRE] prompt during the forward pass of a [ORIGINAL GENRE] prompt.</p>
+        <div class='playlist'>
+            <div class='audio-section'>
+                <p class='audio-title'>Original audio:</p>
+                <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
+            </div>
+            <div class='audio-section intervention-group'>
+                <div>
+                    <p class='audio-title'>Best-scoring intervention:</p>
+                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
+                </div>
+                <div>
+                    <p class='audio-title'>Worst-scoring intervention:</p>
+                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+    <div id='section-3' class='section'>
+        <h2>Cross-Category Interventions: Instrument-Genre</h2>
+
+        <h3>[TITLE]</h3>
+        <p>Introducing the [MODEL COMPONENT] activations of a [DESIRED GENRE] prompt during the forward pass of a [ORIGINAL INSTRUMENT] prompt.</p>
+        <div class='playlist'>
+            <div class='audio-section'>
+                <p class='audio-title'>Original audio:</p>
+                <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
+            </div>
+            <div class='audio-section intervention-group'>
+                <div>
+                    <p class='audio-title'>Best-scoring intervention:</p>
+                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
+                </div>
+                <div>
+                    <p class='audio-title'>Worst-scoring intervention:</p>
+                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
+                </div>
+            </div>
+        </div>
+
+        <h3>[TITLE]</h3>
+        <p>Introducing the [MODEL COMPONENT] activations of a [DESIRED GENRE] prompt during the forward pass of a [ORIGINAL INSTRUMENT] prompt.</p>
+        <div class='playlist'>
+            <div class='audio-section'>
+                <p class='audio-title'>Original audio:</p>
+                <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
+            </div>
+            <div class='audio-section intervention-group'>
+                <div>
+                    <p class='audio-title'>Best-scoring intervention:</p>
+                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
+                </div>
+                <div>
+                    <p class='audio-title'>Worst-scoring intervention:</p>
+                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
+                </div>
+            </div>
+        </div>
+
+        <h3>[TITLE]</h3>
+        <p>Introducing the [MODEL COMPONENT] activations of a [DESIRED GENRE] prompt during the forward pass of a [ORIGINAL INSTRUMENT] prompt.</p>
+        <div class='playlist'>
+            <div class='audio-section'>
+                <p class='audio-title'>Original audio:</p>
+                <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
+            </div>
+            <div class='audio-section intervention-group'>
+                <div>
+                    <p class='audio-title'>Best-scoring intervention:</p>
+                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
+                </div>
+                <div>
+                    <p class='audio-title'>Worst-scoring intervention:</p>
+                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+    <div id='section-4' class='section'>
+        <h2>Cross-Category Interventions: Genre-Instrument</h2>
+
+        <h3>[TITLE]</h3>
+        <p>Introducing the [MODEL COMPONENT] activations of a [DESIRED INSTRUMENT] prompt during the forward pass of a [ORIGINAL GENRE] prompt.</p>
+        <div class='playlist'>
+            <div class='audio-section'>
+                <p class='audio-title'>Original audio:</p>
+                <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
+            </div>
+            <div class='audio-section intervention-group'>
+                <div>
+                    <p class='audio-title'>Best-scoring intervention:</p>
+                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
+                </div>
+                <div>
+                    <p class='audio-title'>Worst-scoring intervention:</p>
+                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
+                </div>
+            </div>
+        </div>
+
+        <h3>[TITLE]</h3>
+        <p>Introducing the [MODEL COMPONENT] activations of a [DESIRED INSTRUMENT] prompt during the forward pass of a [ORIGINAL GENRE] prompt.</p>
+        <div class='playlist'>
+            <div class='audio-section'>
+                <p class='audio-title'>Original audio:</p>
+                <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
+            </div>
+            <div class='audio-section intervention-group'>
+                <div>
+                    <p class='audio-title'>Best-scoring intervention:</p>
+                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
+                </div>
+                <div>
+                    <p class='audio-title'>Worst-scoring intervention:</p>
+                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
+                </div>
+            </div>
+        </div>
+
+        <h3>[TITLE]</h3>
+        <p>Introducing the [MODEL COMPONENT] activations of a [DESIRED INSTRUMENT] prompt during the forward pass of a [ORIGINAL GENRE] prompt.</p>
+        <div class='playlist'>
+            <div class='audio-section'>
+                <p class='audio-title'>Original audio:</p>
+                <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
+            </div>
+            <div class='audio-section intervention-group'>
+                <div>
+                    <p class='audio-title'>Best-scoring intervention:</p>
+                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
+                </div>
+                <div>
+                    <p class='audio-title'>Worst-scoring intervention:</p>
+                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
