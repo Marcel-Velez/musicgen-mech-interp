@@ -11,9 +11,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        .playlist {
-            margin-bottom: 20px;
-        }
+        /*.playlist {*/
+        /*    margin-bottom: 20px;*/
+        /*}*/
         .audio-title {
             margin-top: 10px;
             margin-bottom: 5px;
@@ -35,85 +35,1053 @@
         .intervention-group audio {
             flex: 1;
         }
+
+        .playlist {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .row {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .column {
+            flex: 1;
+            margin: 0 10px;
+        }
+
+        .audio-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        audio {
+            width: 100%;
+        }
+
+        .header .column {
+            font-weight: bold;
+        }
+
+        .row .column:first-child p:not(.audio-title) {
+            font-size: 0.60em; /* Adjust the size as needed */
+            line-height: 1.2em; /* Optional: Adjust the line height for readability */
+        }
+        .prompt-text {
+            margin: 0;
+        }
     </style>
 </head>
 
 <body>
 
     <div class='section'>
-        <h1>MusicGen Interventions - Examples</h1>
-        <p>Audio samples accompanying the paper <i>Exploring the Inner Workings of Large Generative Music Models</i> (ISMIR 2024) by Marcel A. Vélez Vásquez, Charlotte Pouw, Ashley Burgoyne, and Willem Zuidema.</p>
+        <h1>MusicGen DecoderLens & Intervention - Examples</h1>
+        <p>Audio samples accompanying the paper <i>Exploring the Inner Workings of Large Generative Music Models</i> (ISMIR 2024) by Marcel A. Vélez Vásquez, Charlotte Pouw, John Ashley Burgoyne, and Willem Zuidema.</p>
 
         <h4>Contents:</h4>
         <p>
         <ul class='toc'>
-            <li><a href='#section-1'>Within-Category Interventions: Instrument-Instrument</a></li>
-            <li><a href='#section-2'>Within-Category Interventions: Genre-Genre</a></li>
-            <li><a href='#section-3'>Cross-Category Interventions: Instrument-Genre</a></li>
-            <li><a href='#section-4'>Cross-Category Interventions: Genre-Instrument</a></li>
+            <li><a href="#decoderlens">Decoderlens</a></li>
+            <li><a href="#interventions">Interchange interventions</a></li>
+            <ul>
+                <li><a href='#section-1'>Original concept: instrument</a></li>
+                <ul>
+                    <li><a href='#guitar'>Guitar</a></li>
+                    <li><a href='#piano'>Piano</a></li>
+                    <li><a href='#trumpet'>Trumpet</a></li>
+                    <li><a href='#violin'>Violin</a></li>
+                </ul>
+                <li><a href='#section-2'>Original concept: genre</a></li>
+                <ul>
+                    <li><a href='#classical'>Classical</a></li>
+                    <li><a href='#electronic'>Electronic</a></li>
+                    <li><a href='#hiphop'>Hiphop</a></li>
+                    <li><a href='#jazz'>Jazz</a></li>
+                    <li><a href='#pop'>Pop</a></li>
+                    <li><a href='#rock'>Rock</a></li>
+                </ul>
+            </ul>
         </ul>
         </p>
-        
+
     </div>
 
     <hr>
+    <h1 id="decoderlens">Decoderlens</h1>
+    <div class='section'>
+        <p class="prompt-text">Sample of applying the DecoderLens method to intermediate MusicGen layers</p>
+        <div class='playlist'>
+            <div class='row header' style="margin-bottom: 0px; line-height: 90%;">
+                <div class='column' style=" line-height: 90%;">
+                    <p class='audio-title'>Layer 1 audio:</p>
+                </div>
+                <div class='column' style=" line-height: 90%;">
+                    <p class='audio-title'>Layer 16 audio:</p>
+                </div>
+                <div class='column' style=" line-height: 90%;">
+                    <p class='audio-title'>Layer 23 audio:</p>
+                </div>
+                <div class='column' style=" line-height: 90%;">
+                    <p class='audio-title'>Final layer audio:</p>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/guitar_classical_prompt_58_best_62.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/guitar_classical_prompt_58_best_62.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/guitar_classical_prompt_58_best_62.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/guitar_classical_prompt_58_worst_10.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+        </div>
+    </div>
 
+
+    <h1 id="interventions">Interchange interventions</h1>
+    <div class="section">
+        <p class="prompt-text">For each of the following prompts, we randomly chose one of the 100 original prompts we intervened on. We provide the prompt text,
+        original audio, the desired concept, and the best- and worst-scoring interventions for this specific prompt. The best-scoring intervention is the one that most closely matches
+        the desired concept or removes the original concept the most, while the worst-scoring intervention is the one that most closely matches
+            the original concept or the original concept even increased after intervening. <i>There is <u>no</u> ordering based on intervention effectiveness between different desired concepts for a given original concept</i></p>
+    </div>
     <div id='section-1' class='section'>
-        <h2>Within-Category Interventions: Instrument-Instrument</h2>
+        <h2>Original concept: Instrument</h2>
 
-        <h3>[TITLE]</h3>
-        <p>Introducing the [MODEL COMPONENT] activations of a [DESIRED INSTRUMENT] prompt during the forward pass of a [ORIGINAL INSTRUMENT] prompt.</p>
+        <h3 id="guitar">Guitar</h3>
         <div class='playlist'>
-            <div class='audio-section'>
-                <p class='audio-title'>Original audio:</p>
-                <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
-            </div>
-            <div class='audio-section intervention-group'>
-                <div>
-                    <p class='audio-title'>Best-scoring intervention:</p>
-                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
+            <div class='row header'>
+                <div class='column'>
+                    <p class='audio-title'>Original prompt:</p>
                 </div>
-                <div>
+                <div class='column'>
+                    <p class='audio-title'>Original audio:</p>
+                </div>
+                <div class='column'>
+                    <p class='audio-title'>Desired concept:</p>
+                </div>
+                <div class='column'>
+                    <p class='audio-title'>Best-scoring intervention:</p>
+                </div>
+                <div class='column'>
                     <p class='audio-title'>Worst-scoring intervention:</p>
-                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
+                </div>
+            </div>
+
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a passionate electronic piece, with a guitar melody. Use a slow to medium tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_passionate_electronic_piece_with_a_guitar_melody_Use_a_slow_to_medium_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Classical </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/guitar_classical_prompt_58_best_62.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/guitar_classical_prompt_58_worst_10.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a passionate jazz piece, with a guitar melody. Use a slow tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_passionate_jazz_piece_with_a_guitar_melody_Use_a_slow_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Electronic </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/guitar_electronic_prompt_82_best_56.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/guitar_electronic_prompt_82_worst_24.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a emotional jazz piece, with a guitar melody. Use a fast tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_emotional_jazz_piece_with_a_guitar_melody_Use_a_fast_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Hiphop </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/guitar_hiphop_prompt_75_best_54.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/guitar_hiphop_prompt_75_worst_24.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a groovy rock piece, with a guitar melody. Use a slow to medium tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_groovy_rock_piece_with_a_guitar_melody_Use_a_slow_to_medium_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Jazz </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/guitar_jazz_prompt_13_best_50.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/guitar_jazz_prompt_13_worst_0.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a energetic jazz piece, with a guitar melody. Use a slow tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_energetic_jazz_piece_with_a_guitar_melody_Use_a_slow_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Piano </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/guitar_piano_prompt_92_best_16.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/guitar_piano_prompt_92_worst_26.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a passionate jazz piece, with a guitar melody. Use a medium tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_passionate_jazz_piece_with_a_guitar_melody_Use_a_medium_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> pop </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/guitar_pop_prompt_81_best_70.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/guitar_pop_prompt_81_worst_1.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a happy pop piece, with a guitar melody. Use a slow tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_happy_pop_piece_with_a_guitar_melody_Use_a_slow_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> rock </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/guitar_rock_prompt_47_best_53.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/guitar_rock_prompt_47_worst_24.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a happy electronic piece, with a guitar melody. Use a fast tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_happy_electronic_piece_with_a_guitar_melody_Use_a_fast_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Trumpet </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/guitar_trumpet_prompt_70_best_71.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/guitar_trumpet_prompt_70_worst_36.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a groovy electronic piece, with a guitar melody. Use a medium tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_groovy_electronic_piece_with_a_guitar_melody_Use_a_medium_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Violin </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/guitar_violin_prompt_61_best_69.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/guitar_violin_prompt_61_worst_17.wav' type='audio/mpeg'>
+                    </audio>
                 </div>
             </div>
         </div>
 
-        <h3>[TITLE]</h3>
-        <p>Introducing the [MODEL COMPONENT] activations of a [DESIRED INSTRUMENT] prompt during the forward pass of a [ORIGINAL INSTRUMENT] prompt.</p>
+
+        <h3 id="piano">Piano</h3>
         <div class='playlist'>
-            <div class='audio-section'>
-                <p class='audio-title'>Original audio:</p>
-                <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
-            </div>
-            <div class='audio-section intervention-group'>
-                <div>
-                    <p class='audio-title'>Best-scoring intervention:</p>
-                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
+            <div class='row header'>
+                <div class='column'>
+                    <p class='audio-title'>Original prompt:</p>
                 </div>
-                <div>
+                <div class='column'>
+                    <p class='audio-title'>Original audio:</p>
+                </div>
+                <div class='column'>
+                    <p class='audio-title'>Desired concept:</p>
+                </div>
+                <div class='column'>
+                    <p class='audio-title'>Best-scoring intervention:</p>
+                </div>
+                <div class='column'>
                     <p class='audio-title'>Worst-scoring intervention:</p>
-                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
+                </div>
+            </div>
+
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a passionate jazz piece, with a piano melody. Use a medium tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_passionate_jazz_piece_with_a_piano_melody_Use_a_medium_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Classical </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/piano_classical_prompt_81_best_50.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/piano_classical_prompt_81_worst_5.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a emotional jazz piece, with a piano melody. Use a medium tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_emotional_jazz_piece_with_a_piano_melody_Use_a_medium_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Electronic </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/piano_electronic_prompt_76_best_7.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/piano_electronic_prompt_76_worst_24.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a emotional pop piece, with a piano melody. Use a slow to medium tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_emotional_pop_piece_with_a_piano_melody_Use_a_slow_to_medium_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Guitar </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/piano_guitar_prompt_28_best_5.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/piano_guitar_prompt_28_worst_24.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a emotional electronic piece, with a piano melody. Use a medium to fast tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_emotional_electronic_piece_with_a_piano_melody_Use_a_medium_to_fast_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Hiphop </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/piano_hiphop_prompt_54_best_53.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/piano_hiphop_prompt_54_worst_24.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a passionate jazz piece, with a piano melody. Use a slow to medium tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_passionate_jazz_piece_with_a_piano_melody_Use_a_medium_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Jazz </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/piano_jazz_prompt_83_best_60.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/piano_jazz_prompt_83_worst_24.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a passionate pop piece, with a piano melody. Use a medium tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_passionate_pop_piece_with_a_piano_melody_Use_a_medium_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> pop </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/piano_pop_prompt_31_best_66.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/piano_pop_prompt_31_worst_2.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a energetic jazz piece, with a piano melody. Use a medium tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_energetic_jazz_piece_with_a_piano_melody_Use_a_medium_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> rock </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/piano_rock_prompt_91_best_48.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/piano_rock_prompt_91_worst_0.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a passionate electronic piece, with a piano melody. Use a fast tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_passionate_electronic_piece_with_a_piano_melody_Use_a_fast_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Trumpet </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/piano_trumpet_prompt_55_best_12.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/piano_trumpet_prompt_55_worst_24.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a passionate jazz piece, with a piano melody. Use a medium to fast tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_passionate_jazz_piece_with_a_piano_melody_Use_a_medium_to_fast_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Violin </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/piano_violin_prompt_84_best_49.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/piano_violin_prompt_84_worst_24.wav' type='audio/mpeg'>
+                    </audio>
                 </div>
             </div>
         </div>
 
-        <h3>[TITLE]</h3>
-        <p>Introducing the [MODEL COMPONENT] activations of a [DESIRED INSTRUMENT] prompt during the forward pass of a [ORIGINAL INSTRUMENT] prompt.</p>
+
+        <h3 id="trumpet">Trumpet</h3>
         <div class='playlist'>
-            <div class='audio-section'>
-                <p class='audio-title'>Original audio:</p>
-                <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
-            </div>
-            <div class='audio-section intervention-group'>
-                <div>
-                    <p class='audio-title'>Best-scoring intervention:</p>
-                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
+            <div class='row header'>
+                <div class='column'>
+                    <p class='audio-title'>Original prompt:</p>
                 </div>
-                <div>
+                <div class='column'>
+                    <p class='audio-title'>Original audio:</p>
+                </div>
+                <div class='column'>
+                    <p class='audio-title'>Desired concept:</p>
+                </div>
+                <div class='column'>
+                    <p class='audio-title'>Best-scoring intervention:</p>
+                </div>
+                <div class='column'>
                     <p class='audio-title'>Worst-scoring intervention:</p>
-                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
+                </div>
+            </div>
+
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a groovy pop piece, with a trumpet melody. Use a fast tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_groovy_pop_piece_with_a_trumpet_melody_Use_a_fast_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Classical </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/trumpet_classical_prompt_35_best_55.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/trumpet_classical_prompt_35_worst_24.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a passionate jazz piece, with a trumpet melody. Use a fast tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_passionate_jazz_piece_with_a_trumpet_melody_Use_a_fast_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Electronic </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/trumpet_electronic_prompt_80_best_68.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/trumpet_electronic_prompt_80_worst_0.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a happy electronic piece, with a trumpet melody. Use a slow to medium tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_happy_electronic_piece_with_a_trumpet_melody_Use_a_slow_to_medium_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Guitar </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/trumpet_guitar_prompt_73_best_62.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/trumpet_guitar_prompt_73_worst_24.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a emotional pop piece, with a trumpet melody. Use a fast tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_emotional_pop_piece_with_a_trumpet_melody_Use_a_fast_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Hiphop </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/trumpet_hiphop_prompt_25_best_71.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/trumpet_hiphop_prompt_25_worst_2.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a groovy jazz piece, with a trumpet melody. Use a fast tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_groovy_jazz_piece_with_a_trumpet_melody_Use_a_fast_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Jazz </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/trumpet_jazz_prompt_85_best_49.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/trumpet_jazz_prompt_85_worst_24.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a happy pop piece, with a trumpet melody. Use a slow to medium tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_happy_pop_piece_with_a_trumpet_melody_Use_a_slow_to_medium_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> pop </p>
+                </div>
+                <div class='column'>
+                    <p> Piano </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/trumpet_piano_prompt_48_best_51.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/trumpet_piano_prompt_48_worst_24.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a passionate rock piece, with a trumpet melody. Use a slow tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_passionate_rock_piece_with_a_trumpet_melody_Use_a_slow_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/trumpet_pop_prompt_7_best_56.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/trumpet_pop_prompt_7_worst_11.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a happy jazz piece, with a trumpet melody. Use a slow to medium tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_happy_jazz_piece_with_a_trumpet_melody_Use_a_slow_to_medium_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> rock </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/trumpet_rock_prompt_98_best_28.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/trumpet_rock_prompt_98_worst_0.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a happy rock piece, with a trumpet melody. Use a medium to fast tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_happy_rock_piece_with_a_trumpet_melody_Use_a_medium_to_fast_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Violin </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/trumpet_violin_prompt_24_best_40.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/trumpet_violin_prompt_24_worst_0.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+        </div>
+
+
+        <h3 id="violin">Violin</h3>
+        <div class='playlist'>
+            <div class='row header'>
+                <div class='column'>
+                    <p class='audio-title'>Original prompt:</p>
+                </div>
+                <div class='column'>
+                    <p class='audio-title'>Original audio:</p>
+                </div>
+                <div class='column'>
+                    <p class='audio-title'>Desired concept:</p>
+                </div>
+                <div class='column'>
+                    <p class='audio-title'>Best-scoring intervention:</p>
+                </div>
+                <div class='column'>
+                    <p class='audio-title'>Worst-scoring intervention:</p>
+                </div>
+            </div>
+
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a emotional jazz piece, with a violin melody. Use a slow to medium tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_emotional_jazz_piece_with_a_violin_melody_Use_a_slow_to_medium_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Classical </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/violin_classical_prompt_78_best_24.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/violin_classical_prompt_78_worst_8.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a groovy jazz piece, with a violin melody. Use a slow to medium tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_groovy_jazz_piece_with_a_violin_melody_Use_a_slow_to_medium_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Electronic </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/violin_electronic_prompt_88_best_12.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/violin_electronic_prompt_88_worst_24.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a energetic rock piece, with a violin melody. Use a medium to fast tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_energetic_rock_piece_with_a_violin_melody_Use_a_medium_to_fast_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Guitar </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/violin_guitar_prompt_19_best_68.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/violin_guitar_prompt_19_worst_16.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a passionate pop piece, with a violin melody. Use a slow to medium tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_passionate_pop_piece_with_a_violin_melody_Use_a_slow_to_medium_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Hiphop </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/violin_hiphop_prompt_33_best_70.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/violin_hiphop_prompt_33_worst_24.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a passionate pop piece, with a violin melody. Use a medium to fast tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_passionate_pop_piece_with_a_violin_melody_Use_a_medium_to_fast_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Jazz </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/violin_jazz_prompt_34_best_71.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/violin_jazz_prompt_34_worst_0.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a passionate pop piece, with a violin melody. Use a slow to medium tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_passionate_pop_piece_with_a_violin_melody_Use_a_slow_to_medium_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Piano </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/violin_piano_prompt_33_best_14.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/violin_piano_prompt_33_worst_24.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a passionate rock piece, with a violin melody. Use a fast tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_passionate_rock_piece_with_a_violin_melody_Use_a_fast_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+
+                <div class='column'>
+                    <p> pop </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/violin_pop_prompt_5_best_67.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/violin_pop_prompt_5_worst_12.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a groovy electronic piece, with a violin melody. Use a medium to fast tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_groovy_electronic_piece_with_a_violin_melody_Use_a_medium_to_fast_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> rock </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/violin_rock_prompt_64_best_62.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/violin_rock_prompt_64_worst_24.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a groovy electronic piece, with a violin melody. Use a fast tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_groovy_electronic_piece_with_a_violin_melody_Use_a_medium_to_fast_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Trumpet </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/violin_trumpet_prompt_60_best_54.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/violin_trumpet_prompt_60_worst_0.wav' type='audio/mpeg'>
+                    </audio>
                 </div>
             </div>
         </div>
@@ -121,189 +1089,1418 @@
 
     <hr>
     <div id='section-2' class='section'>
-        <h2>Within-Category Interventions: Genre-Genre</h2>
+        <h2>Original concept: Genre</h2>
 
-        <h3>[TITLE]</h3>
-        <p>Introducing the [MODEL COMPONENT] activations of a [DESIRED GENRE] prompt during the forward pass of a [ORIGINAL GENRE] prompt.</p>
+        <h3 id="classical">Classical</h3>
         <div class='playlist'>
-            <div class='audio-section'>
-                <p class='audio-title'>Original audio:</p>
-                <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
-            </div>
-            <div class='audio-section intervention-group'>
-                <div>
+            <div class='row header'>
+                <div class='column'>
+                    <p class='audio-title'>Original prompt:</p>
+                </div>
+                <div class='column'>
+                    <p class='audio-title'>Original audio:</p>
+                </div>
+                <div class='column'>
+                    <p class='audio-title'>Desired concept:</p>
+                </div>
+                <div class='column'>
                     <p class='audio-title'>Best-scoring intervention:</p>
-                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
                 </div>
-                <div>
+                <div class='column'>
                     <p class='audio-title'>Worst-scoring intervention:</p>
-                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
                 </div>
+            </div>
+
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a emotional classical piece, with a guitar melody. Use a slow tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_emotional_classical_piece_with_a_guitar_melody_Use_a_slow_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Electronic </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/classical_electronic_prompt_2_best_70.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/classical_electronic_prompt_2_worst_24.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a passionate classical piece, with a violin melody. Use a medium to fast tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_passionate_classical_piece_with_a_violin_melody_Use_a_medium_to_fast_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Guitar </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/classical_guitar_prompt_44_best_71.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/classical_guitar_prompt_44_worst_24.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a energetic classical piece, with a piano melody. Use a slow to medium tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_energetic_classical_piece_with_a_piano_melody_Use_a_slow_to_medium_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Hiphop </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/classical_hiphop_prompt_83_best_71.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/classical_hiphop_prompt_83_worst_6.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a groovy classical piece, with a piano melody. Use a slow to medium tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_groovy_classical_piece_with_a_piano_melody_Use_a_slow_to_medium_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Jazz </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/classical_jazz_prompt_58_best_59.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/classical_jazz_prompt_58_worst_24.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a passionate classical piece, with a violin melody. Use a medium tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_passionate_classical_piece_with_a_violin_melody_Use_a_medium_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Piano </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/classical_piano_prompt_41_best_71.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/classical_piano_prompt_41_worst_24.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a energetic classical piece, with a piano melody. Use a slow to medium tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_energetic_classical_piece_with_a_piano_melody_Use_a_slow_to_medium_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> pop </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/classical_pop_prompt_83_best_49.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/classical_pop_prompt_83_worst_11.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a groovy classical piece, with a trumpet melody. Use a fast tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_groovy_classical_piece_with_a_trumpet_melody_Use_a_fast_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> rock </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/classical_rock_prompt_60_best_37.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/classical_rock_prompt_60_worst_21.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a energetic classical piece, with a trumpet melody. Use a slow to medium tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_energetic_classical_piece_with_a_trumpet_melody_Use_a_slow_to_medium_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Trumpet </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/classical_trumpet_prompt_88_best_0.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/classical_trumpet_prompt_88_worst_24.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a passionate classical piece, with a violin melody. Use a medium to fast tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_passionate_classical_piece_with_a_violin_melody_Use_a_medium_to_fast_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Violin </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/classical_violin_prompt_44_best_24.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/classical_violin_prompt_44_worst_8.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+
             </div>
         </div>
 
-        <h3>[TITLE]</h3>
-        <p>Introducing the [MODEL COMPONENT] activations of a [DESIRED GENRE] prompt during the forward pass of a [ORIGINAL GENRE] prompt.</p>
+
+        <h3 id="electronic">Electronic</h3>
         <div class='playlist'>
-            <div class='audio-section'>
-                <p class='audio-title'>Original audio:</p>
-                <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
-            </div>
-            <div class='audio-section intervention-group'>
-                <div>
+            <div class='row header'>
+                <div class='column'>
+                    <p class='audio-title'>Original prompt:</p>
+                </div>
+                <div class='column'>
+                    <p class='audio-title'>Original audio:</p>
+                </div>
+                <div class='column'>
+                    <p class='audio-title'>Desired concept:</p>
+                </div>
+                <div class='column'>
                     <p class='audio-title'>Best-scoring intervention:</p>
-                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
                 </div>
-                <div>
+                <div class='column'>
                     <p class='audio-title'>Worst-scoring intervention:</p>
-                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
                 </div>
+            </div>
+
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a passionate electronic piece, with a trumpet melody. Use a medium to fast tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_passionate_electronic_piece_with_a_trumpet_melody_Use_a_medium_to_fast_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Classical </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/electronic_classical_prompt_39_best_43.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/electronic_classical_prompt_39_worst_54.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a groovy electronic piece, with a trumpet melody. Use a medium to fast tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_groovy_electronic_piece_with_a_trumpet_melody_Use_a_medium_to_fast_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Guitar </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/electronic_guitar_prompt_64_best_51.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/electronic_guitar_prompt_64_worst_39.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a energetic electronic piece, with a flute melody. Use a fast tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_energetic_electronic_piece_with_a_flute_melody_Use_a_fast_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Hiphop </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/electronic_hiphop_prompt_95_best_54.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/electronic_hiphop_prompt_95_worst_35.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a passionate electronic piece, with a guitar melody. Use a slow tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_passionate_electronic_piece_with_a_guitar_melody_Use_a_slow_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Jazz </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/electronic_jazz_prompt_27_best_9.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/electronic_jazz_prompt_27_worst_67.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a groovy electronic piece, with a violin melody. Use a medium tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_groovy_electronic_piece_with_a_violin_melody_Use_a_medium_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Piano </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/electronic_piano_prompt_66_best_44.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/electronic_piano_prompt_66_worst_48.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a emotional electronic piece, with a violin melody. Use a slow tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_emotional_electronic_piece_with_a_violin_melody_Use_a_slow_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> pop </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/electronic_pop_prompt_17_best_39.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/electronic_pop_prompt_17_worst_65.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a passionate electronic piece, with a flute melody. Use a slow tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_passionate_electronic_piece_with_a_flute_melody_Use_a_slow_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> rock </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/electronic_rock_prompt_47_best_12.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/electronic_rock_prompt_47_worst_45.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a energetic electronic piece, with a piano melody. Use a medium to fast tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_energetic_electronic_piece_with_a_piano_melody_Use_a_medium_to_fast_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Trumpet </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/electronic_trumpet_prompt_84_best_48.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/electronic_trumpet_prompt_84_worst_4.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a energetic electronic piece, with a guitar melody. Use a medium tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_energetic_electronic_piece_with_a_guitar_melody_Use_a_medium_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Violin </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/electronic_violin_prompt_76_best_69.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/electronic_violin_prompt_76_worst_50.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+
             </div>
         </div>
 
-        <h3>[TITLE]</h3>
-        <p>Introducing the [MODEL COMPONENT] activations of a [DESIRED GENRE] prompt during the forward pass of a [ORIGINAL GENRE] prompt.</p>
+
+        <h3 id="hiphop">Hiphop</h3>
         <div class='playlist'>
-            <div class='audio-section'>
-                <p class='audio-title'>Original audio:</p>
-                <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
-            </div>
-            <div class='audio-section intervention-group'>
-                <div>
+            <div class='row header'>
+                <div class='column'>
+                    <p class='audio-title'>Original prompt:</p>
+                </div>
+                <div class='column'>
+                    <p class='audio-title'>Original audio:</p>
+                </div>
+                <div class='column'>
+                    <p class='audio-title'>Desired concept:</p>
+                </div>
+                <div class='column'>
                     <p class='audio-title'>Best-scoring intervention:</p>
-                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
                 </div>
-                <div>
+                <div class='column'>
                     <p class='audio-title'>Worst-scoring intervention:</p>
-                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
                 </div>
+            </div>
+
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a energetic hiphop piece, with a violin melody. Use a medium tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_energetic_hiphop_piece_with_a_violin_melody_Use_a_medium_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Classical </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/hiphop_classical_prompt_91_best_0.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/hiphop_classical_prompt_91_worst_37.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a groovy hiphop piece, with a trumpet melody. Use a slow tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_groovy_hiphop_piece_with_a_trumpet_melody_Use_a_slow_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Electronic </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/hiphop_electronic_prompt_62_best_55.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/hiphop_electronic_prompt_62_worst_36.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a emotional hiphop piece, with a trumpet melody. Use a slow to medium tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_emotional_hiphop_piece_with_a_trumpet_melody_Use_a_slow_to_medium_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+
+                <div class='column'>
+                    <p> Guitar </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/hiphop_guitar_prompt_13_best_37.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/hiphop_guitar_prompt_13_worst_68.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a passionate hiphop piece, with a violin melody. Use a slow tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_passionate_hiphop_piece_with_a_violin_melody_Use_a_slow_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Jazz </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/hiphop_jazz_prompt_42_best_48.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/hiphop_jazz_prompt_42_worst_22.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a emotional hiphop piece, with a flute melody. Use a medium tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_emotional_hiphop_piece_with_a_flute_melody_Use_a_medium_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Piano </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/hiphop_piano_prompt_21_best_49.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/hiphop_piano_prompt_21_worst_45.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a energetic hiphop piece, with a trumpet melody. Use a slow tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_energetic_hiphop_piece_with_a_trumpet_melody_Use_a_slow_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> pop </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/hiphop_pop_prompt_87_best_62.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/hiphop_pop_prompt_87_worst_15.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a passionate hiphop piece, with a trumpet melody. Use a medium to fast tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_passionate_hiphop_piece_with_a_trumpet_melody_Use_a_medium_to_fast_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> rock </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/hiphop_rock_prompt_39_best_41.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/hiphop_rock_prompt_39_worst_9.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a passionate hiphop piece, with a guitar melody. Use a medium to fast tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_passionate_hiphop_piece_with_a_guitar_melody_Use_a_medium_to_fast_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Trumpet </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/hiphop_trumpet_prompt_29_best_71.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/hiphop_trumpet_prompt_29_worst_29.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a groovy hiphop piece, with a trumpet melody. Use a medium to fast tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_groovy_hiphop_piece_with_a_trumpet_melody_Use_a_medium_to_fast_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Violin </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/hiphop_violin_prompt_64_best_71.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/hiphop_violin_prompt_64_worst_68.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+
             </div>
         </div>
+
+
+        <h3 id="jazz">Jazz</h3>
+        <div class='playlist'>
+            <div class='row header'>
+                <div class='column'>
+                    <p class='audio-title'>Original prompt:</p>
+                </div>
+                <div class='column'>
+                    <p class='audio-title'>Original audio:</p>
+                </div>
+                <div class='column'>
+                    <p class='audio-title'>Desired concept:</p>
+                </div>
+                <div class='column'>
+                    <p class='audio-title'>Best-scoring intervention:</p>
+                </div>
+                <div class='column'>
+                    <p class='audio-title'>Worst-scoring intervention:</p>
+                </div>
+            </div>
+
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a energetic jazz piece, with a piano melody. Use a fast tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_energetic_jazz_piece_with_a_piano_melody_Use_a_fast_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Classical </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/jazz_classical_prompt_80_best_16.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/jazz_classical_prompt_80_worst_65.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a groovy jazz piece, with a violin melody. Use a slow to medium tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_groovy_jazz_piece_with_a_violin_melody_Use_a_slow_to_medium_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Electronic </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/jazz_electronic_prompt_68_best_16.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/jazz_electronic_prompt_68_worst_24.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a energetic jazz piece, with a violin melody. Use a fast tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_energetic_jazz_piece_with_a_violin_melody_Use_a_fast_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                                <div class='column'>
+                    <p> Guitar </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/jazz_guitar_prompt_90_best_63.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/jazz_guitar_prompt_90_worst_14.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a passionate jazz piece, with a guitar melody. Use a slow tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_passionate_jazz_piece_with_a_guitar_melody_Use_a_slow_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Hiphop </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/jazz_hiphop_prompt_27_best_51.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/jazz_hiphop_prompt_27_worst_24.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a groovy jazz piece, with a trumpet melody. Use a medium tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_groovy_jazz_piece_with_a_trumpet_melody_Use_a_medium_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Piano </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/jazz_piano_prompt_61_best_48.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/jazz_piano_prompt_61_worst_43.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a groovy jazz piece, with a violin melody. Use a slow tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_groovy_jazz_piece_with_a_violin_melody_Use_a_slow_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> pop </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/jazz_pop_prompt_67_best_56.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/jazz_pop_prompt_67_worst_24.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a energetic jazz piece, with a piano melody. Use a medium tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_energetic_jazz_piece_with_a_piano_melody_Use_a_medium_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> rock </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/jazz_rock_prompt_81_best_48.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/jazz_rock_prompt_81_worst_13.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a emotional jazz piece, with a guitar melody. Use a slow tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_emotional_jazz_piece_with_a_guitar_melody_Use_a_slow_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Trumpet </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/jazz_trumpet_prompt_2_best_58.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/jazz_trumpet_prompt_2_worst_17.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a energetic jazz piece, with a flute melody. Use a slow tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_energetic_jazz_piece_with_a_flute_melody_Use_a_slow_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Violin </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/jazz_violin_prompt_97_best_71.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/jazz_violin_prompt_97_worst_23.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+
+        </div>
+
+
+        <h3 id="pop">Pop</h3>
+        <div class='playlist'>
+            <div class='row header'>
+                <div class='column'>
+                    <p class='audio-title'>Original prompt:</p>
+                </div>
+                <div class='column'>
+                    <p class='audio-title'>Original audio:</p>
+                </div>
+                <div class='column'>
+                    <p class='audio-title'>Desired concept:</p>
+                </div>
+                <div class='column'>
+                    <p class='audio-title'>Best-scoring intervention:</p>
+                </div>
+                <div class='column'>
+                    <p class='audio-title'>Worst-scoring intervention:</p>
+                </div>
+            </div>
+
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a groovy pop piece, with a violin melody. Use a fast tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_groovy_pop_piece_with_a_violin_melody_Use_a_fast_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Classical </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/pop_classical_prompt_65_best_37.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/pop_classical_prompt_65_worst_11.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a groovy pop piece, with a flute melody. Use a slow tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_groovy_pop_piece_with_a_flute_melody_Use_a_slow_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Electronic </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/pop_electronic_prompt_72_best_59.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/pop_electronic_prompt_72_worst_24.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a emotional pop piece, with a flute melody. Use a medium tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_emotional_pop_piece_with_a_flute_melody_Use_a_medium_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+
+                <div class='column'>
+                    <p> Guitar </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/pop_guitar_prompt_21_best_11.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/pop_guitar_prompt_21_worst_67.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a passionate pop piece, with a flute melody. Use a slow to medium tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_passionate_pop_piece_with_a_flute_melody_Use_a_slow_to_medium_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Hiphop </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/pop_hiphop_prompt_48_best_15.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/pop_hiphop_prompt_48_worst_28.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a energetic pop piece, with a violin melody. Use a medium to fast tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_energetic_pop_piece_with_a_violin_melody_Use_a_medium_to_fast_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Jazz </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/pop_jazz_prompt_94_best_67.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/pop_jazz_prompt_94_worst_4.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a energetic pop piece, with a flute melody. Use a slow to medium tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_energetic_pop_piece_with_a_flute_melody_Use_a_slow_to_medium_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Piano </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/pop_piano_prompt_98_best_7.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/pop_piano_prompt_98_worst_7.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a energetic pop piece, with a piano melody. Use a medium to fast tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_energetic_pop_piece_with_a_piano_melody_Use_a_medium_to_fast_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+
+                <div class='column'>
+                    <p> rock </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/pop_rock_prompt_84_best_1.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/pop_rock_prompt_84_worst_42.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a energetic pop piece, with a flute melody. Use a medium to fast tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_energetic_pop_piece_with_a_flute_melody_Use_a_medium_to_fast_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Trumpet </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/pop_trumpet_prompt_99_best_71.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/pop_trumpet_prompt_99_worst_33.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a energetic pop piece, with a piano melody. Use a slow to medium tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_energetic_pop_piece_with_a_piano_melody_Use_a_slow_to_medium_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Violin </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/pop_violin_prompt_83_best_45.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/pop_violin_prompt_83_worst_4.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+
+            </div>
+        </div>
+
+
+        <h3 id="rock">Rock</h3>
+        <div class='playlist'>
+            <div class='row header'>
+                <div class='column'>
+                    <p class='audio-title'>Original prompt:</p>
+                </div>
+                <div class='column'>
+                    <p class='audio-title'>Original audio:</p>
+                </div>
+                <div class='column'>
+                    <p class='audio-title'>Desired concept:</p>
+                </div>
+                <div class='column'>
+                    <p class='audio-title'>Best-scoring intervention:</p>
+                </div>
+                <div class='column'>
+                    <p class='audio-title'>Worst-scoring intervention:</p>
+                </div>
+            </div>
+
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a energetic rock piece, with a flute melody. Use a medium tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_energetic_rock_piece_with_a_flute_melody_Use_a_medium_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Classical </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/rock_classical_prompt_96_best_10.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/rock_classical_prompt_96_worst_24.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a groovy rock piece, with a flute melody. Use a slow to medium tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_groovy_rock_piece_with_a_flute_melody_Use_a_slow_to_medium_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Electronic </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/rock_electronic_prompt_73_best_5.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/rock_electronic_prompt_73_worst_24.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a emotional rock piece, with a guitar melody. Use a fast tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_emotional_rock_piece_with_a_guitar_melody_Use_a_fast_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Guitar </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/rock_guitar_prompt_0_best_71.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/rock_guitar_prompt_0_worst_39.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a groovy rock piece, with a violin melody. Use a slow to medium tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_groovy_rock_piece_with_a_violin_melody_Use_a_slow_to_medium_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Hiphop </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/rock_hiphop_prompt_68_best_18.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/rock_hiphop_prompt_68_worst_52.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a groovy rock piece, with a violin melody. Use a slow tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_groovy_rock_piece_with_a_violin_melody_Use_a_slow_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Jazz </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/rock_jazz_prompt_67_best_14.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/rock_jazz_prompt_67_worst_40.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a groovy rock piece, with a piano melody. Use a fast tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_groovy_rock_piece_with_a_piano_melody_Use_a_fast_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Piano </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/rock_piano_prompt_55_best_19.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/rock_piano_prompt_55_worst_24.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a groovy rock piece, with a guitar melody. Use a medium tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_groovy_rock_piece_with_a_guitar_melody_Use_a_medium_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> pop </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/rock_pop_prompt_51_best_51.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/rock_pop_prompt_51_worst_11.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a energetic rock piece, with a trumpet melody. Use a medium to fast tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_energetic_rock_piece_with_a_trumpet_melody_Use_a_medium_to_fast_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Trumpet </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/rock_trumpet_prompt_89_best_1.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/rock_trumpet_prompt_89_worst_33.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+
+            </div>
+            <div class='row'>
+                <div class='column'>
+                    <p class="prompt-text">Compose a groovy rock piece, with a guitar melody. Use a fast tempo.</p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='original_audio/Compose_a_groovy_rock_piece_with_a_guitar_melody_Use_a_fast_tempo.mp3' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <p> Violin </p>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/rock_violin_prompt_50_best_37.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+                <div class='column'>
+                    <audio preload='metadata' controls>
+                        <source src='intervention_samples/rock_violin_prompt_50_worst_8.wav' type='audio/mpeg'>
+                    </audio>
+                </div>
+
+            </div>
+        </div>
+
     </div>
 
-    <hr>
-    <div id='section-3' class='section'>
-        <h2>Cross-Category Interventions: Instrument-Genre</h2>
-
-        <h3>[TITLE]</h3>
-        <p>Introducing the [MODEL COMPONENT] activations of a [DESIRED GENRE] prompt during the forward pass of a [ORIGINAL INSTRUMENT] prompt.</p>
-        <div class='playlist'>
-            <div class='audio-section'>
-                <p class='audio-title'>Original audio:</p>
-                <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
-            </div>
-            <div class='audio-section intervention-group'>
-                <div>
-                    <p class='audio-title'>Best-scoring intervention:</p>
-                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
-                </div>
-                <div>
-                    <p class='audio-title'>Worst-scoring intervention:</p>
-                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
-                </div>
-            </div>
-        </div>
-
-        <h3>[TITLE]</h3>
-        <p>Introducing the [MODEL COMPONENT] activations of a [DESIRED GENRE] prompt during the forward pass of a [ORIGINAL INSTRUMENT] prompt.</p>
-        <div class='playlist'>
-            <div class='audio-section'>
-                <p class='audio-title'>Original audio:</p>
-                <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
-            </div>
-            <div class='audio-section intervention-group'>
-                <div>
-                    <p class='audio-title'>Best-scoring intervention:</p>
-                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
-                </div>
-                <div>
-                    <p class='audio-title'>Worst-scoring intervention:</p>
-                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
-                </div>
-            </div>
-        </div>
-
-        <h3>[TITLE]</h3>
-        <p>Introducing the [MODEL COMPONENT] activations of a [DESIRED GENRE] prompt during the forward pass of a [ORIGINAL INSTRUMENT] prompt.</p>
-        <div class='playlist'>
-            <div class='audio-section'>
-                <p class='audio-title'>Original audio:</p>
-                <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
-            </div>
-            <div class='audio-section intervention-group'>
-                <div>
-                    <p class='audio-title'>Best-scoring intervention:</p>
-                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
-                </div>
-                <div>
-                    <p class='audio-title'>Worst-scoring intervention:</p>
-                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <hr>
-    <div id='section-4' class='section'>
-        <h2>Cross-Category Interventions: Genre-Instrument</h2>
-
-        <h3>[TITLE]</h3>
-        <p>Introducing the [MODEL COMPONENT] activations of a [DESIRED INSTRUMENT] prompt during the forward pass of a [ORIGINAL GENRE] prompt.</p>
-        <div class='playlist'>
-            <div class='audio-section'>
-                <p class='audio-title'>Original audio:</p>
-                <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
-            </div>
-            <div class='audio-section intervention-group'>
-                <div>
-                    <p class='audio-title'>Best-scoring intervention:</p>
-                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
-                </div>
-                <div>
-                    <p class='audio-title'>Worst-scoring intervention:</p>
-                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
-                </div>
-            </div>
-        </div>
-
-        <h3>[TITLE]</h3>
-        <p>Introducing the [MODEL COMPONENT] activations of a [DESIRED INSTRUMENT] prompt during the forward pass of a [ORIGINAL GENRE] prompt.</p>
-        <div class='playlist'>
-            <div class='audio-section'>
-                <p class='audio-title'>Original audio:</p>
-                <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
-            </div>
-            <div class='audio-section intervention-group'>
-                <div>
-                    <p class='audio-title'>Best-scoring intervention:</p>
-                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
-                </div>
-                <div>
-                    <p class='audio-title'>Worst-scoring intervention:</p>
-                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
-                </div>
-            </div>
-        </div>
-
-        <h3>[TITLE]</h3>
-        <p>Introducing the [MODEL COMPONENT] activations of a [DESIRED INSTRUMENT] prompt during the forward pass of a [ORIGINAL GENRE] prompt.</p>
-        <div class='playlist'>
-            <div class='audio-section'>
-                <p class='audio-title'>Original audio:</p>
-                <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
-            </div>
-            <div class='audio-section intervention-group'>
-                <div>
-                    <p class='audio-title'>Best-scoring intervention:</p>
-                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
-                </div>
-                <div>
-                    <p class='audio-title'>Worst-scoring intervention:</p>
-                    <audio preload='metadata' controls><source src='samples/mp3/blizzard_unconditional/sample-0.mp3' type='audio/mpeg'></audio>
-                </div>
-            </div>
-        </div>
-    </div>
 
 </body>
 </html>
