@@ -1,0 +1,9 @@
+audiocraft==1.2.0
+hear21passt==0.0.25
+matplotlib==3.6.3
+numpy==1.23.5
+pandas==1.5.3
+scipy==1.14.1
+seaborn==0.13.2
+soundfile==0.12.1
+torch==2.1.0

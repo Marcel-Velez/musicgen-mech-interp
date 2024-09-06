@@ -1,10 +1,11 @@
 import torch
 from torch.nn.functional import kl_div
 from functools import partial
+import os
 
-from model_utils import model_generate, classifier_forward, clear_model_hooks, apply_pre_transformer_hook, clear_pre_transformer_hook, unnest_intervention_lists
-from interchange_interventions.activations import get_activations_for_dataset, load_or_compute_mean_activations, generate_sample_value, ActivationIterator, DoubleActivationIterator, inject_activation_hook_fn
-from utils import save_to_file, listen_to_extremes
+from .model_utils import model_generate, classifier_forward, clear_model_hooks, apply_pre_transformer_hook, clear_pre_transformer_hook, unnest_intervention_lists
+from .activations import get_activations_for_dataset, load_or_compute_mean_activations, generate_sample_value, ActivationIterator, DoubleActivationIterator, inject_activation_hook_fn
+from .utils import save_to_file, listen_to_extremes
 
 
 def apply_model_hooks(model, mean_activations_a, batch_size, double_act=False, device=None, mean_activations_b=None,
@@ -92,12 +93,13 @@ def single_intervene_ablation(
 # Main pipeline function
 def single_intervene_pipeline(model, classifier, corpus_a, corpus_b, instr_a_idx, instr_b_idx,
                               batch_size, device=None, prompt_type=None, mean_a_file=None,
-                              mean_b_file=None, model_size=None, save_extremes=False):
+                              mean_b_file=None, model_size=None, save_extremes=False, pre_computed=False):
     num_layers = len(model.lm.transformer.layers)
 
     print("Starting activations for corpus A")
     corpus_a_audio, corpus_a_activations = get_activations_for_dataset(model, corpus_a, batch_size)
-    corpus_a_mean_activations = load_or_compute_mean_activations(mean_a_file, model, corpus_a, batch_size)
+    corpus_a_mean_activations = load_or_compute_mean_activations(mean_a_file, model, corpus_a, batch_size,
+                                                                 pre_computed=pre_computed)
 
     print("Starting activations for corpus B")
     print("Generating probabilities for corpus A")
@@ -112,11 +114,11 @@ def single_intervene_pipeline(model, classifier, corpus_a, corpus_b, instr_a_idx
         corpus_b_mean_activations, instr_a_idx, instr_b_idx, batch_size, num_layers, device
     )
 
-    results_dir = "./results"
-    save_to_file(corpus_kl_div, f"{results_dir}/{model_size}_{prompt_type}_kl_divs_new_formula.pkl")
-    save_to_file(all_probs, f"{results_dir}/{model_size}_{prompt_type}_all_probs_new_formula.pkl")
-    save_to_file(corpus_a_probs, f"{results_dir}/{model_size}_{prompt_type}_old_probs_new_formula.pkl")
-    save_to_file(a_b_ratios, f"{results_dir}/{model_size}_{prompt_type}_old_diff_new_formula.pkl")
+    os.mkdirs("./intervention_results", exist_ok=True)
+    results_dir = "./intervention_results"
+    save_to_file(corpus_kl_div, f"{results_dir}/{model_size}_{prompt_type}_kl_divs.pkl")
+    save_to_file(all_probs, f"{results_dir}/{model_size}_{prompt_type}_all_probs.pkl")
+    save_to_file(a_b_ratios, f"{results_dir}/{model_size}_{prompt_type}_concept_ratios.pkl")
 
     if save_extremes:
         listen_to_extremes(generated_audio, a_b_ratios, num_layers=num_layers,

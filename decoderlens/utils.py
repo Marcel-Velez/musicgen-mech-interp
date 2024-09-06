@@ -5,7 +5,7 @@ from math import log2
 
 def load_musicgen(device):
     model = musicgen.MusicGen.get_pretrained('facebook/musicgen-small', device=device)
-    model.set_generation_params(duration=8, use_sampling=True)
+    model.set_generation_params(duration=4, use_sampling=True)
     return model
 
 def load_classifier(device):

@@ -1,13 +1,16 @@
+from __future__ import annotations
+
 import torch
-from utils import load_musicgen
-from prompts import guitar_desc
-from scipy.signal import spectrogram
-import matplotlib.pyplot as plt
-from librosa.display import waveshow
+import torch.nn as nn
+
+from decoderlens.utils import load_musicgen
 import numpy as np
 from audiocraft.modules.transformer import create_sin_embedding
 from scipy.io import wavfile
+import soundfile as sf
+import os
 
+MUSICGEN_SAMPLE_RATE = 32_000
 
 def set_custom_forward_musicgen(model, target_layer):
     def custom_forward_transformer(self, x: torch.Tensor, *args, **kwargs):
@@ -40,36 +43,21 @@ def set_custom_forward_musicgen(model, target_layer):
     
     
 def generate_music(model: nn.Module, prompts: str|list, duration: int=4, output_file: str="musicgen_out.wav", save_file: bool=False) -> torch.Tensor:
-  if isinstance(prompts, str):
-    prompts = [prompts]
-  model.set_generation_params(duration=duration)  # generate 4 seconds.
-  torch.manual_seed(42)
-  generation = model.generate(prompts)
+    if isinstance(prompts, str):
+        prompts = [prompts]
+    model.set_generation_params(duration=duration)  # generate 4 seconds.
+    torch.manual_seed(42)
+    generation = model.generate(prompts)
 
-  # save the files if desired
-  if isinstance(prompts, list) and len(prompts)>1:
-    for ind, aud in enumerate(generation):
-      if save_file:
-        sf.write(f'{ind}_{output_file}', aud.cpu().numpy().squeeze(), MUSICGEN_SAMPLE_RATE)
-  else:
-      if save_file:
-        sf.write(f'{output_file}', generation.cpu().numpy().squeeze(), MUSICGEN_SAMPLE_RATE)
+    # save the files if desired
+    if isinstance(prompts, list) and len(prompts)>1:
+        for ind, aud in enumerate(generation):
+            if save_file:
+                sf.write(f'{ind}_{output_file}', aud.cpu().numpy().squeeze(), MUSICGEN_SAMPLE_RATE)
+    else:
+        if save_file:
+            sf.write(f'{output_file}', generation.cpu().numpy().squeeze(), MUSICGEN_SAMPLE_RATE)
 
-  return generation
+    return generation
 
 
-if __name__ == '__main__':
-
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
-    # Load MusicGen model
-    model = load_musicgen(device)
-
-    # Iterate over layers
-    for TARGET in range(1, 25):
-
-        set_custom_forward_musicgen(music_model, TARGET)
-	text_prompt = 'Compose a happy rock piece with a guitar melody. Use a fast tempo.'
-	audio = generate_music(music_model, text_prompt, save_file=True, output_file=f'musicgen_layer_{TARGET}.wav')
-	print(f"*** Audio for layer {TARGET} generated. ***")
-        wavfile.write(f'decoder_lens_outputs/layer{TARGET}.wav', 32000, np.array(audio))

@@ -3,7 +3,7 @@ from collections import defaultdict
 import pickle as pkl
 import math
 
-from model_utils import clear_model_hooks, apply_pre_transformer_hook, clear_pre_transformer_hook
+from .model_utils import clear_model_hooks, apply_pre_transformer_hook, clear_pre_transformer_hook
 
 
 def get_activations_for_dataset(model, desc: list, batch_size: int = 4, pre_comp: bool = False):
@@ -111,13 +111,16 @@ def unnest_activations(nested_activation_dict):
     return unnested_activation_dict
 
 
-def load_or_compute_mean_activations(file_path, model, corpus, batch_size):
-    if file_path:
+def load_or_compute_mean_activations(file_path, model, corpus, batch_size, pre_computed=False):
+    if file_path and pre_computed:
         with open(file_path, 'rb') as file:
             mean_activations = pkl.load(file)
     else:
         _, activations = get_activations_for_dataset(model, corpus, batch_size)
         mean_activations = get_mean_activations(activations)
+        if file_path:
+            with open(file_path, 'wb') as file:
+                pkl.dump(mean_activations, file)
     return mean_activations
 
 

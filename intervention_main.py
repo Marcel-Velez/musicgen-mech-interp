@@ -1,20 +1,18 @@
 import torch
 from argparse import ArgumentParser
-from musicgen import MusicGen  # Assuming MusicGen is imported from somewhere
-from utils import load_model, save_to_file
-from intervention_pipeline import single_intervene_pipeline
-from prompt_generation import get_prompts_for
-
+from audiocraft.models import MusicGen
+from decoderlens.utils import load_model
+from interchange_interventions import single_intervene_pipeline, PromptGenerator
 
 def main():
     # Argument Parsing
     argument_parser = ArgumentParser()
     argument_parser.add_argument('--fixed_concept', type=int, default=-1)
-    argument_parser.add_argument('--model_size', type=str, default='medium', choices=['small', 'medium', 'large'])
+    argument_parser.add_argument('--model_size', type=str, default='small', choices=['small', 'medium', 'large'])
     argument_parser.add_argument('--n_prompts_per_concept', type=int, default=100)
-    argument_parser.add_argument('--gpus', type=bool, default=False, action='store_true')
-
-
+    argument_parser.add_argument('--pre_computed_means', default=False, action='store_true')
+    argument_parser.add_argument('--gpus', default=False, action='store_true')
+    argument_parser.add_argument('--save_extremes', default=False, action='store_true')
 
     args = argument_parser.parse_args()
 
@@ -47,21 +45,23 @@ def main():
         9: ('hiphop', 217)
     }
 
-    all_stuff = {**instruments, **genres}
+    all_concepts = {**instruments, **genres}
 
     # Load Prompts
+    prompt_gen = PromptGenerator()
+
     prompts = {}
-    for key, (name, _) in all_stuff.items():
-        prompts[key] = get_prompts_for(name, '[INSTRUMENTS]' if key < 4 else '[GENRE]',
-                                       n_total=args.n_prompts_per_concept, n_per_type=1000)[0]
+    for key, (name, _) in all_concepts.items():
+        prompts[key] = prompt_gen.get_prompts_for(name, '[INSTRUMENTS]' if key < 4 else '[GENRE]',
+                                       n_total=args.n_prompts_per_concept, n_per_type=1000)
 
     # Intervention Loop
     for i in range(10):
         for j in range(10):
             if i != j and (i == args.fixed_concept or args.fixed_concept == -1):
-                to_be_intervened = all_stuff[i]
-                to_intervene_with = all_stuff[j]
-                type_prompt = f"{to_be_intervened[0]}_{to_intervene_with[0]}"
+                to_be_intervened = all_concepts[i]
+                to_intervene_with = all_concepts[j]
+                prompt_type = f"{to_be_intervened[0]}_{to_intervene_with[0]}"
 
                 # Mean Activation File Paths
                 mean_a_file = f'./mean_activations/{args.model_size}_{to_be_intervened[0]}_mean_activations.pkl'
@@ -75,10 +75,12 @@ def main():
                     to_be_intervened[1], to_intervene_with[1],
                     batch_size=48,
                     device=device,
-                    type_prompt=type_prompt,
+                    prompt_type=prompt_type,
                     mean_a_file=mean_a_file,
                     mean_b_file=mean_b_file,
-                    model_size=args.model_size
+                    model_size=args.model_size,
+                    save_extremes=args.save_extremes,
+                    pre_computed=args.pre_computed_means
                 )
 
 
